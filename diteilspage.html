@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comincation_webSite</title>
+
+    <!-- =======secripte & styles ====== -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+
+
+
+
+<style>
+    body{
+        background-color: rgba(165, 165, 165, 0.349);
+    }
+</style>
+<body>
+    <!-- ==== show ALERT======== -->
+    <div id="liveAlertPlaceholder" style="position: absolute; bottom: 0; right: 0;z-index: 99999999999;" ></div>
+    <!-- NAVIGATION BARE -->
+    <div class="container pt-2">
+        <div class="d-flex justify-content-center">
+            <div class="col-9">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary rounded shadow ">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="home.html">MH_BELFELLAH</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav" style="position: relative; ">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Profile</a>
+                                </li>
+                            </ul>
+
+                            <!-- ===FOR NO LOGEED USER=== -->
+                                <div  class="d-flex justify-content-end w-100" id="login-div">
+                                    <button id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-success mx-2">Login</button>
+                                    <button id="regester-btn" type="button" data-bs-toggle="modal" data-bs-target="#registertModal" class="btn btn-outline-success">Regester</button>
+                                </div>
+                            <!-- ===///FOR NO LOGEED USER///=== -->
+                            <!-- ===FOR NO LOGEED USER=== -->
+                            <div  class="d-flex justify-content-end w-100  align-items-center" id="logout-div" >
+                                <img  id="nav-user-image" class="rounded-circle m-2" style="width: 40px ; height: 40px;" src="./img/profil 1.jpg" alt="">
+                                <b id="nav-username">
+                                    @mohammed24
+                                </b>
+                                <button onclick="logout()" id="logout-btn" type="button" data-bs-toggle="modal"  class="btn btn-outline-danger mx-2">Logout</button>
+                            </div>
+                        <!-- ===/// LOGEED USER ///=== -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+<!-- ///NAVIGATION BARE/// -->
+<!-- ===========LOGEIN MODAL========== -->
+    <div class="modal fade  " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="username-input" value="salah">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="password-input" value="654321">
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="LoginClicked()" type="button" class="btn btn-primary" >Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ===========//// LOGEIN MODAL ////========== -->
+
+<!-- ===========REGISTER MODAL========== -->
+    <div class="modal fade  " id="registertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="registerModalLabel">Register </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Profil image:</label>
+                            <input type="file" class="form-control" id="register-profil-input" >
+                        </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="register-username-input" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">name:</label>
+                        <input type="text" class="form-control" id="register-name-input" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="register-password-input" >
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="registerClicked()" type="button" class="btn btn-primary" >Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ===========//// REGISTER MODAL ////========== -->
+
+
+
+<!-- =========MAIN CONTENT ============= -->
+    <div class="container" >
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="col-9">
+                <!-- ========== user post ======== -->
+                <div >
+                    <h1>
+                        mohammed  <span> post </span>
+                    </h1>
+                </div>
+                <!-- =========///user post///======== -->
+                <!-- ===== CONTENT OF THE POST==== -->
+                <div class="d-flex justify-content-center mt-4">
+                    <div>
+                        <div id="post">
+                            <div class="card shadow ">
+                                <h5 class="card-header">
+                                    <img class="rounded-circle " src="./img/profil 1.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <span><b> @mohammed-belfellah</b></span>
+                                    
+                                </h5>
+                                <div class="card-body">
+                                        <img class="w-100 " src="./img/img1.jpg" alt="" >
+                                        <h6 class="mt-1" style="color: gray;">2 min ago </h6>
+                                        <h2>Hello world</h2>
+                                        <p> 
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi ratione fuga commodi ipsa! Quos rerum earum, dignissimos maxime voluptatem cupiditate 
+                                            facilis, modi molestiae quidem voluptate laborum minima, debitis odit.
+                                        </p>
+                                        <hr>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                            </svg>
+                                            <span>
+                                                (3) comments
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===== CONTENT OF THE POST==== -->
+            </div>
+            
+        </div>
+    </div>
+<!-- =========/// MAIN CONTENT /// ============= -->
+<script src="main.js"></script>
+<script>
+    // setupUi()
+    // LoginClicked()
+
+/* ============= GET CLICKED POST (1 post with unique id ) ============  */
+
+const searchParams = new URLSearchParams(window.location.search);
+const id = searchParams.get("id")
+
+/* =============/// GET CLICKED POST (1 post with unique id )/// ============  */
+</script>
+</body>
+</html>
